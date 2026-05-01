@@ -63,6 +63,12 @@ Open `http://127.0.0.1:5000`
 
 ---
 
+## ERD Diagram
+
+![Blood Bank ERD](docs/erd-diagram.png)
+
+---
+
 It is designed so that:
 - frontend forms collect user input,
 - Flask routes validate and persist data,
