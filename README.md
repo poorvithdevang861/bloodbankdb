@@ -2,6 +2,67 @@
 
 This project is a Flask + Oracle database web application for managing blood donors, blood requests, and stock.
 
+## Quick Start (Easiest)
+
+### 1) Clone and enter project
+
+```bash
+git clone https://github.com/poorvithdevang861/bloodbankdb.git
+cd bloodbankdb
+```
+
+### 2) Create and activate virtual environment
+
+macOS/Linux:
+
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+```
+
+Windows (PowerShell):
+
+```powershell
+python -m venv .venv
+.venv\Scripts\Activate.ps1
+```
+
+### 3) Install dependencies
+
+```bash
+pip install flask oracledb
+```
+
+### 4) Set Oracle DB and app environment variables
+
+macOS/Linux:
+
+```bash
+export FLASK_SECRET_KEY='replace-with-a-random-secret'
+export DB_USER='system'
+export DB_PASSWORD='replace-with-your-db-password'
+export DB_DSN='localhost:1521/FREEPDB1'
+```
+
+Windows (PowerShell):
+
+```powershell
+$env:FLASK_SECRET_KEY='replace-with-a-random-secret'
+$env:DB_USER='system'
+$env:DB_PASSWORD='replace-with-your-db-password'
+$env:DB_DSN='localhost:1521/FREEPDB1'
+```
+
+### 5) Run the app
+
+```bash
+python app.py
+```
+
+Open `http://127.0.0.1:5000`
+
+---
+
 It is designed so that:
 - frontend forms collect user input,
 - Flask routes validate and persist data,
@@ -157,7 +218,7 @@ This prevents raw SQL errors from appearing directly in UI.
 
 ---
 
-## 6) Setup / Run
+## 6) Database Setup Notes
 
 ### Apply DB scripts
 
@@ -165,19 +226,6 @@ Run in this order:
 1. `01_final_schema.sql`
 2. `02_final_plsql.sql`
 3. `03_final_data_and_test.sql`
-
-### Run app
-
-```bash
-cd "/Users/poorvithdevang/Downloads/bloodbankdb"
-source .venv/bin/activate
-FLASK_SECRET_KEY='replace-with-a-random-secret' \
-DB_USER=system DB_PASSWORD='replace-with-your-db-password' \
-DB_DSN='localhost:1521/FREEPDB1' python app.py
-```
-
-Open:
-- `http://127.0.0.1:5000`
 
 ---
 
