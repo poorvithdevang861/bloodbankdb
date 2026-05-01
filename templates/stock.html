@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blood Stock</title>
+    <style>
+        :root {
+            --bg: #f5f5f3;
+            --surface: #ecece8;
+            --border: #d4d4cf;
+            --text: #2f2f2c;
+            --button-text: #1f355e;
+            --muted: #5a5a56;
+            --accent: #8b1f1f;
+            --accent-hover: #7a1b1b;
+            --shadow-raised: -7px -7px 14px rgba(255, 255, 255, 0.75), 8px 8px 18px rgba(153, 153, 145, 0.35);
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .page {
+            max-width: 700px;
+            width: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        .surface {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            box-shadow: var(--shadow-raised);
+            padding: 24px;
+        }
+
+        h2 {
+            margin: 0 0 18px;
+        }
+
+        h2::after {
+            content: "";
+            display: block;
+            margin-top: 8px;
+            width: 46px;
+            height: 3px;
+            border-radius: 999px;
+            background: var(--accent);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: #f0f0ec;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        th, td {
+            padding: 12px 10px;
+            text-align: left;
+            border-bottom: 1px solid #ddddda;
+        }
+
+        th {
+            font-size: 0.9rem;
+            color: var(--muted);
+            letter-spacing: 0.2px;
+            background: #e6e6e1;
+        }
+
+        tr:last-child td { border-bottom: none; }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 16px;
+            text-decoration: none;
+            padding: 9px 12px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            background: #e8e8e3;
+            color: var(--button-text);
+            font-weight: 600;
+            box-shadow: -2px -2px 4px rgba(255, 255, 255, 0.65), 4px 4px 9px rgba(143, 143, 134, 0.3);
+        }
+
+        .back-link:hover {
+            color: var(--accent);
+            background: #edede9;
+        }
+    </style>
+</head>
+<body>
+<div class="page">
+    <div class="surface">
+        <h2>Blood Stock</h2>
+        <table>
+            <tr>
+                <th>Blood Group</th>
+                <th>Units Available</th>
+            </tr>
+            {% for s in stock %}
+            <tr>
+                <td>{{ s[0] }}</td>
+                <td>{{ s[1] }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+        <a class="back-link" href="/">Back</a>
+    </div>
+</div>
+</body>
+</html>

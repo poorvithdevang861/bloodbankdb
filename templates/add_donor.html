@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Donor</title>
+    <style>
+        :root {
+            --bg: #f5f5f3;
+            --surface: #ecece8;
+            --surface-strong: #e3e3de;
+            --border: #d4d4cf;
+            --text: #2f2f2c;
+            --button-text: #1f355e;
+            --muted: #5a5a56;
+            --accent: #8b1f1f;
+            --accent-hover: #7a1b1b;
+            --accent-strong: #6b1818;
+            --shadow-raised: -7px -7px 14px rgba(255, 255, 255, 0.75), 8px 8px 18px rgba(153, 153, 145, 0.35);
+            --shadow-inset: inset 2px 2px 5px rgba(150, 150, 141, 0.3), inset -2px -2px 4px rgba(255, 255, 255, 0.75);
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .page {
+            max-width: 520px;
+            width: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        .surface {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            box-shadow: var(--shadow-raised);
+            padding: 26px;
+        }
+
+        h2 {
+            margin: 0 0 20px;
+            color: var(--text);
+        }
+
+        h2::after {
+            content: "";
+            display: block;
+            margin-top: 9px;
+            width: 46px;
+            height: 3px;
+            border-radius: 999px;
+            background: var(--accent);
+        }
+
+        .field { margin-bottom: 14px; }
+
+        label {
+            display: block;
+            margin-bottom: 6px;
+            font-size: 0.92rem;
+            color: var(--muted);
+            font-weight: 600;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            background: var(--surface-strong);
+            box-shadow: var(--shadow-inset);
+            outline: none;
+        }
+
+        input:focus, select:focus {
+            border-color: #b46d6d;
+            box-shadow: var(--shadow-inset), 0 0 0 3px rgba(139, 31, 31, 0.15);
+        }
+
+        .actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 18px;
+        }
+
+        .btn {
+            display: inline-block;
+            text-decoration: none;
+            text-align: center;
+            padding: 10px 14px;
+            border-radius: 10px;
+            border: 1px solid var(--border);
+            background: #e8e8e3;
+            color: var(--button-text);
+            font-weight: 600;
+            box-shadow: -2px -2px 4px rgba(255, 255, 255, 0.65), 4px 4px 9px rgba(143, 143, 134, 0.3);
+            cursor: pointer;
+        }
+
+        .btn.primary {
+            background: linear-gradient(160deg, #7f1c1c, var(--accent-strong));
+            color: #ffffff;
+            text-shadow: 0 1px 1px rgba(0, 0, 0, 0.35);
+            border-color: #6f1717;
+        }
+
+        .btn.primary:hover {
+            background: linear-gradient(160deg, var(--accent), var(--accent-strong));
+            color: #ffffff;
+        }
+
+        .btn:not(.primary):hover {
+            color: var(--accent);
+            background: #edede9;
+        }
+
+        .btn:active {
+            transform: translateY(1px);
+            box-shadow: inset 1px 1px 3px rgba(0, 0, 0, 0.18);
+        }
+
+        .error-box {
+            margin: 0 0 16px;
+            padding: 10px 12px;
+            border-radius: 10px;
+            border: 1px solid #c97979;
+            background: #f8ecec;
+            color: #7a1b1b;
+            font-size: 0.92rem;
+        }
+    </style>
+</head>
+<body>
+<div class="page">
+    <div class="surface">
+        <h2>Add Donor</h2>
+        {% if error %}
+            <div class="error-box">{{ error }}</div>
+        {% endif %}
+        <form method="POST">
+            <p style="margin-top:0;color:var(--muted);font-size:0.9rem;">Donor ID is auto-generated. Fill details exactly as medical records.</p>
+            <div class="field">
+                <label for="name">Name</label>
+                <input id="name" name="name" value="{{ form_data.name if form_data else '' }}" placeholder="Enter full donor name" required>
+            </div>
+            <div class="field">
+                <label for="age">Age</label>
+                <input id="age" name="age" value="{{ form_data.age if form_data else '' }}" placeholder="18 to 65" required>
+            </div>
+            <div class="field">
+                <label for="gender">Gender (M/F/O)</label>
+                <select id="gender" name="gender" required>
+                    <option value="">Select gender</option>
+                    <option value="M" {% if form_data and form_data.gender == 'M' %}selected{% endif %}>Male (M)</option>
+                    <option value="F" {% if form_data and form_data.gender == 'F' %}selected{% endif %}>Female (F)</option>
+                    <option value="O" {% if form_data and form_data.gender == 'O' %}selected{% endif %}>Other (O)</option>
+                </select>
+            </div>
+            <div class="field">
+                <label for="weight">Weight (kg)</label>
+                <input id="weight" name="weight" value="{{ form_data.weight if form_data else '' }}" placeholder="Example: 62" required>
+            </div>
+            <div class="field">
+                <label for="blood">Blood Group</label>
+                <select id="blood" name="blood" required>
+                    <option value="">Select blood group</option>
+                    {% for bg in blood_groups %}
+                        <option value="{{ bg }}" {% if form_data and form_data.blood == bg %}selected{% endif %}>{{ bg }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="field">
+                <label for="phone">Phone</label>
+                <input id="phone" name="phone" value="{{ form_data.phone if form_data else '' }}" placeholder="10 digit mobile number" required>
+            </div>
+            <div class="actions">
+                <button class="btn primary" type="submit">Add Donor</button>
+                <a class="btn" href="/">Back</a>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>

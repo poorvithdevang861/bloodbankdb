@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blood Bank</title>
+    <style>
+        :root {
+            --bg: #f5f5f3;
+            --surface: #ecece8;
+            --border: #d4d4cf;
+            --text: #2f2f2c;
+            --button-text: #1f355e;
+            --muted: #5a5a56;
+            --accent: #8b1f1f;
+            --accent-hover: #7a1b1b;
+            --accent-strong: #6b1818;
+            --shadow-raised: -7px -7px 14px rgba(255, 255, 255, 0.75), 8px 8px 18px rgba(153, 153, 145, 0.35);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            background: var(--bg);
+            color: var(--text);
+            font-family: Arial, Helvetica, sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .page {
+            max-width: 520px;
+            width: 100%;
+            margin: 0;
+            padding: 0 18px;
+        }
+
+        .surface {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            box-shadow: var(--shadow-raised);
+            padding: 28px;
+        }
+
+        h1 {
+            margin: 0 0 8px;
+            text-align: center;
+            font-size: 1.75rem;
+            color: var(--text);
+        }
+
+        .subtitle {
+            margin: 0 0 20px;
+            text-align: center;
+            color: var(--muted);
+            font-size: 0.95rem;
+        }
+
+        .divider {
+            height: 3px;
+            width: 54px;
+            margin: 0 auto 22px;
+            border-radius: 999px;
+            background: var(--accent);
+        }
+
+        .menu-link {
+            display: block;
+            margin-bottom: 11px;
+            padding: 12px 14px;
+            text-decoration: none;
+            text-align: center;
+            border-radius: 11px;
+            background: #e8e8e3;
+            color: var(--button-text);
+            border: 1px solid var(--border);
+            box-shadow: -2px -2px 4px rgba(255, 255, 255, 0.65), 4px 4px 9px rgba(143, 143, 134, 0.3);
+            font-weight: 600;
+        }
+
+        .menu-link:hover {
+            color: var(--accent);
+            border-color: #c8c8c3;
+            background: #edede9;
+        }
+
+        .menu-link:visited {
+            color: var(--button-text);
+        }
+
+        .menu-link:active {
+            transform: translateY(1px);
+            box-shadow: inset 1px 1px 3px rgba(0, 0, 0, 0.18);
+        }
+
+        .logout {
+            margin-top: 18px;
+            color: #ffffff;
+            text-shadow: 0 1px 1px rgba(0, 0, 0, 0.35);
+            background: linear-gradient(160deg, #7f1c1c, var(--accent-strong));
+            border-color: #6f1717;
+        }
+
+        .logout:visited {
+            color: #ffffff;
+        }
+
+        .logout:hover {
+            color: #fff;
+            background: linear-gradient(160deg, var(--accent), var(--accent-strong));
+        }
+
+        .logout:hover:visited {
+            color: #ffffff;
+        }
+    </style>
+</head>
+<body>
+<div class="page">
+    <div class="surface">
+        <h1>Blood Bank Management System</h1>
+        <p class="subtitle">Simple and reliable donor and request tracking</p>
+        <p class="subtitle" style="margin-top:-8px;">Flow: Add Donor (updates stock) -> Process Requests.</p>
+        <div class="divider"></div>
+
+        {% if role == 'staff' %}
+            <a class="menu-link" href="/add_donor">Add Donor</a>
+            <a class="menu-link" href="/view_donors">View Donors</a>
+            <a class="menu-link" href="/view_requests">View Requests</a>
+            <a class="menu-link" href="/stock">View Blood Stock</a>
+        {% endif %}
+
+        {% if role == 'doctor' %}
+            <a class="menu-link" href="/add_request">Add Request</a>
+        {% endif %}
+
+        <a class="menu-link logout" href="/logout">Logout</a>
+    </div>
+</div>
+</body>
+</html>
